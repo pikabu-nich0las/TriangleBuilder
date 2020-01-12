@@ -2,6 +2,7 @@
 {
 	using System;
 	using System.Drawing;
+	using System.Drawing.Imaging;
 	using System.Linq;
 	using System.Windows.Forms;
 
@@ -17,6 +18,11 @@
 
 		private void DrawButton_Click(Object sender, EventArgs e)
 		{
+			PictureBox.Image = BuildBitmap();
+		}
+
+		private Bitmap BuildBitmap()
+		{
 			Int32 sideA = (Int32)SideALength.Value;
 			Int32 sideB = (Int32)SideBLength.Value;
 			Int32 sideC = (Int32)SideCLength.Value;
@@ -30,7 +36,7 @@
 					caption: @"Error"
 				);
 
-				return;
+				return null;
 			}
 
 			var triangleCoordinateCalculator = new TriangleCoordinateCalculator();
@@ -39,7 +45,9 @@
 			var pointsBuilder = new PointsBuilder();
 			var points = pointsBuilder.Build(triangle.ToPolygon(), interval, drawingDirection);
 
-			using (var graphic = PictureBox.CreateGraphics())
+			Bitmap bitmap = new Bitmap(PictureBox.Width, PictureBox.Height);
+
+			using (var graphic = Graphics.FromImage(bitmap))
 			{
 				graphic.Clear(Color.White);
 
@@ -50,6 +58,8 @@
 					points.Select(p => new PointF((float)p.X, (float)p.Y)).ToArray()
 				);
 			}
+
+			return bitmap;
 		}
 
 		private DrawingDirection GetDrawingDirection()
@@ -65,6 +75,24 @@
 			}
 
 			return default(DrawingDirection);
+		}
+
+		private void SaveAsPngButton_Click(object sender, EventArgs e)
+		{
+			var bitmap = BuildBitmap();
+			PictureBox.Image = bitmap;
+
+			if (bitmap == null)
+			{
+				return;
+			}
+
+			if (SaveFileDialog.ShowDialog() == DialogResult.Cancel)
+			{
+				return;
+			}
+
+			bitmap.Save(SaveFileDialog.FileName, ImageFormat.Png);
 		}
 	}
 }
