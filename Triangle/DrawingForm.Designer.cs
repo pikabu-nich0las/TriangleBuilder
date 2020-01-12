@@ -44,7 +44,9 @@
 			this.IsClockwise = new System.Windows.Forms.RadioButton();
 			this.IsAntiClockwise = new System.Windows.Forms.RadioButton();
 			this.SaveAsPngButton = new System.Windows.Forms.Button();
-			this.SaveFileDialog = new System.Windows.Forms.SaveFileDialog();
+			this.SavePngFileDialog = new System.Windows.Forms.SaveFileDialog();
+			this.SaveAsSvgButton = new System.Windows.Forms.Button();
+			this.SaveSvgFileDialog = new System.Windows.Forms.SaveFileDialog();
 			this.groupBox1.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.SideCLength)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.SideBLength)).BeginInit();
@@ -268,22 +270,38 @@
 			// 
 			this.SaveAsPngButton.Location = new System.Drawing.Point(471, 68);
 			this.SaveAsPngButton.Name = "SaveAsPngButton";
-			this.SaveAsPngButton.Size = new System.Drawing.Size(190, 48);
+			this.SaveAsPngButton.Size = new System.Drawing.Size(89, 48);
 			this.SaveAsPngButton.TabIndex = 4;
 			this.SaveAsPngButton.Text = "Save PNG";
 			this.SaveAsPngButton.UseVisualStyleBackColor = true;
 			this.SaveAsPngButton.Click += new System.EventHandler(this.SaveAsPngButton_Click);
 			// 
-			// SaveFileDialog
+			// SavePngFileDialog
 			// 
-			this.SaveFileDialog.FileName = "impage.png";
-			this.SaveFileDialog.Filter = "PNG Files (*.png)|*.png";
+			this.SavePngFileDialog.FileName = "impage.png";
+			this.SavePngFileDialog.Filter = "PNG Files (*.png)|*.png";
+			// 
+			// SaveAsSvgButton
+			// 
+			this.SaveAsSvgButton.Location = new System.Drawing.Point(572, 68);
+			this.SaveAsSvgButton.Name = "SaveAsSvgButton";
+			this.SaveAsSvgButton.Size = new System.Drawing.Size(89, 48);
+			this.SaveAsSvgButton.TabIndex = 5;
+			this.SaveAsSvgButton.Text = "Save SVG";
+			this.SaveAsSvgButton.UseVisualStyleBackColor = true;
+			this.SaveAsSvgButton.Click += new System.EventHandler(this.SaveAsSvgButton_Click);
+			// 
+			// SaveSvgFileDialog
+			// 
+			this.SaveSvgFileDialog.FileName = "impage.svg";
+			this.SaveSvgFileDialog.Filter = "SVG Files (*.svg)|*.svg";
 			// 
 			// DrawingForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(673, 800);
+			this.Controls.Add(this.SaveAsSvgButton);
 			this.Controls.Add(this.SaveAsPngButton);
 			this.Controls.Add(this.groupBox2);
 			this.Controls.Add(this.PictureBox);
@@ -324,7 +342,9 @@
 		private System.Windows.Forms.NumericUpDown Interval;
 		private System.Windows.Forms.Label label5;
 		private System.Windows.Forms.Button SaveAsPngButton;
-		private System.Windows.Forms.SaveFileDialog SaveFileDialog;
+		private System.Windows.Forms.SaveFileDialog SavePngFileDialog;
+		private System.Windows.Forms.Button SaveAsSvgButton;
+		private System.Windows.Forms.SaveFileDialog SaveSvgFileDialog;
 	}
 }
 
