@@ -2,44 +2,48 @@
 {
 	using System;
 	using System.Collections.Generic;
+	using System.Linq;
 
 	public class PointsBuilder
 	{
-		public List<Point> Build(Triangle triangle, Double interval, DrawingDirection direction)
+		public List<Point> Build(Polygon polygon, Double interval, DrawingDirection direction)
 		{
-			List<Point> points;
+			List<Point> points = polygon.Vertices.Select(v => new Point(v)).ToList();
+			List<Point> basis = polygon.Vertices.Select(v => new Point(v)).ToList();
 
 			switch (direction)
 			{
 				case DrawingDirection.Clockwise:
-					points = new List<Point> { triangle.Vertex1, triangle.Vertex2, triangle.Vertex3, triangle.Vertex1 };
 					break;
 				case DrawingDirection.Anticlockwise:
-					points = new List<Point> { triangle.Vertex3, triangle.Vertex2, triangle.Vertex1, triangle.Vertex3 };
+					points.Reverse();
+					basis.Reverse();
 					break;
 				default:
 					throw new ArgumentException($"{nameof(DrawingDirection)}.{direction} is not supported");
 			}
 
-			var point1 = points[0];
-			var point2 = points[1];
-			var point3 = points[2];
+			points.Add(new Point(points[0]));
 
-			while (Point.SegmentLength(point2, point3) > interval)
+			Int32 recalculatedIndex = 1;
+			Int32 nextIndex = GetNextIndex(recalculatedIndex, basis.Count);
+
+			while (Point.SegmentLength(basis[recalculatedIndex], basis[nextIndex]) > interval)
 			{
-				var newPoint = CalculateNewPoint(point2, point3, interval);
-				points.Add(newPoint);
-
-				var oldPoint1 = new Point(point1);
-				var oldPoint3 = new Point(point3);
-
-				point1 = newPoint;
-				point2 = oldPoint3;
-				point3 = oldPoint1;
+				Point newPoint = CalculateNewPoint(basis[recalculatedIndex], basis[nextIndex], interval);
+				points.Add(new Point(newPoint));			
+				basis[recalculatedIndex] = new Point(newPoint);
+				recalculatedIndex = nextIndex;
+				nextIndex = GetNextIndex(recalculatedIndex, basis.Count);
 			}
 
 			return points;
 		}
+
+		private static Int32 GetNextIndex(Int32 currentIndex, Int32 arrayLength)
+			=> currentIndex >= arrayLength - 1
+				? 0
+				: currentIndex + 1;
 
 		private static Point CalculateNewPoint(Point pointA, Point pointB, Double interval)
 		{

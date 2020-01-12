@@ -37,7 +37,7 @@
 			var triangle = triangleCoordinateCalculator.Calculate(sideA, sideB, sideC, PictureBox.Width, PictureBox.Height);
 
 			var pointsBuilder = new PointsBuilder();
-			var points = pointsBuilder.Build(triangle, interval, drawingDirection);
+			var points = pointsBuilder.Build(triangle.ToPolygon(), interval, drawingDirection);
 
 			using (var graphic = PictureBox.CreateGraphics())
 			{

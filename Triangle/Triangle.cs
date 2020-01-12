@@ -44,6 +44,9 @@
 			   (side2Length < side1Length + side3Length) &&
 			   (side3Length < side1Length + side2Length);
 
+		public Polygon ToPolygon()
+			=> new Polygon(Vertex1, Vertex2, Vertex3);
+
 		private static Double Min(params Double[] values)
 		{
 			return Operation(values, Math.Min);
