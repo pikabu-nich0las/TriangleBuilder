@@ -47,6 +47,8 @@
 			this.SavePngFileDialog = new System.Windows.Forms.SaveFileDialog();
 			this.SaveAsSvgButton = new System.Windows.Forms.Button();
 			this.SaveSvgFileDialog = new System.Windows.Forms.SaveFileDialog();
+			this.LoadConfigButton = new System.Windows.Forms.Button();
+			this.LoadFile = new System.Windows.Forms.OpenFileDialog();
 			this.groupBox1.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.SideCLength)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.SideBLength)).BeginInit();
@@ -167,9 +169,9 @@
 			// 
 			// DrawButton
 			// 
-			this.DrawButton.Location = new System.Drawing.Point(471, 18);
+			this.DrawButton.Location = new System.Drawing.Point(419, 18);
 			this.DrawButton.Name = "DrawButton";
-			this.DrawButton.Size = new System.Drawing.Size(190, 44);
+			this.DrawButton.Size = new System.Drawing.Size(118, 44);
 			this.DrawButton.TabIndex = 1;
 			this.DrawButton.Text = "Draw";
 			this.DrawButton.UseVisualStyleBackColor = true;
@@ -178,7 +180,7 @@
 			// PictureBox
 			// 
 			this.PictureBox.BackColor = System.Drawing.Color.White;
-			this.PictureBox.Location = new System.Drawing.Point(11, 133);
+			this.PictureBox.Location = new System.Drawing.Point(12, 133);
 			this.PictureBox.Name = "PictureBox";
 			this.PictureBox.Size = new System.Drawing.Size(650, 650);
 			this.PictureBox.TabIndex = 2;
@@ -189,7 +191,7 @@
 			this.groupBox2.Controls.Add(this.Interval);
 			this.groupBox2.Controls.Add(this.label5);
 			this.groupBox2.Controls.Add(this.groupBox3);
-			this.groupBox2.Location = new System.Drawing.Point(198, 8);
+			this.groupBox2.Location = new System.Drawing.Point(164, 8);
 			this.groupBox2.Name = "groupBox2";
 			this.groupBox2.Size = new System.Drawing.Size(247, 119);
 			this.groupBox2.TabIndex = 3;
@@ -268,9 +270,9 @@
 			// 
 			// SaveAsPngButton
 			// 
-			this.SaveAsPngButton.Location = new System.Drawing.Point(471, 68);
+			this.SaveAsPngButton.Location = new System.Drawing.Point(419, 68);
 			this.SaveAsPngButton.Name = "SaveAsPngButton";
-			this.SaveAsPngButton.Size = new System.Drawing.Size(89, 48);
+			this.SaveAsPngButton.Size = new System.Drawing.Size(118, 48);
 			this.SaveAsPngButton.TabIndex = 4;
 			this.SaveAsPngButton.Text = "Save PNG";
 			this.SaveAsPngButton.UseVisualStyleBackColor = true;
@@ -283,9 +285,9 @@
 			// 
 			// SaveAsSvgButton
 			// 
-			this.SaveAsSvgButton.Location = new System.Drawing.Point(572, 68);
+			this.SaveAsSvgButton.Location = new System.Drawing.Point(544, 68);
 			this.SaveAsSvgButton.Name = "SaveAsSvgButton";
-			this.SaveAsSvgButton.Size = new System.Drawing.Size(89, 48);
+			this.SaveAsSvgButton.Size = new System.Drawing.Size(118, 48);
 			this.SaveAsSvgButton.TabIndex = 5;
 			this.SaveAsSvgButton.Text = "Save SVG";
 			this.SaveAsSvgButton.UseVisualStyleBackColor = true;
@@ -296,11 +298,26 @@
 			this.SaveSvgFileDialog.FileName = "impage.svg";
 			this.SaveSvgFileDialog.Filter = "SVG Files (*.svg)|*.svg";
 			// 
+			// LoadConfigButton
+			// 
+			this.LoadConfigButton.Location = new System.Drawing.Point(544, 18);
+			this.LoadConfigButton.Name = "LoadConfigButton";
+			this.LoadConfigButton.Size = new System.Drawing.Size(118, 44);
+			this.LoadConfigButton.TabIndex = 6;
+			this.LoadConfigButton.Text = "Draw from file";
+			this.LoadConfigButton.UseVisualStyleBackColor = true;
+			this.LoadConfigButton.Click += new System.EventHandler(this.LoadConfigButton_Click);
+			// 
+			// LoadFile
+			// 
+			this.LoadFile.Filter = "TXT Files (*.txt)|*.txt";
+			// 
 			// DrawingForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(673, 800);
+			this.Controls.Add(this.LoadConfigButton);
 			this.Controls.Add(this.SaveAsSvgButton);
 			this.Controls.Add(this.SaveAsPngButton);
 			this.Controls.Add(this.groupBox2);
@@ -345,6 +362,8 @@
 		private System.Windows.Forms.SaveFileDialog SavePngFileDialog;
 		private System.Windows.Forms.Button SaveAsSvgButton;
 		private System.Windows.Forms.SaveFileDialog SaveSvgFileDialog;
+		private System.Windows.Forms.Button LoadConfigButton;
+		private System.Windows.Forms.OpenFileDialog LoadFile;
 	}
 }
 

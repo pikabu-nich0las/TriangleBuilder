@@ -4,6 +4,7 @@
 	using System.Collections.Generic;
 	using System.Drawing;
 	using System.Drawing.Imaging;
+	using System.IO;
 	using System.Linq;
 	using System.Windows.Forms;
 	using Svg;
@@ -149,6 +150,65 @@
 			svg.Children.Add(polyline);
 
 			svg.Write(SaveSvgFileDialog.FileName);
+		}
+
+		private void LoadConfigButton_Click(object sender, EventArgs e)
+		{
+			if (LoadFile.ShowDialog() == DialogResult.Cancel)
+			{
+				return;
+			}
+
+			var lines = File.ReadAllLines(LoadFile.FileName);
+
+			var parser = new FileParser();
+
+			Scene scene;
+
+			try
+			{
+				scene = parser.Parse(lines);
+			}
+			catch
+			{
+				MessageBox.Show(@"Could not parse file", @"Error");
+				return;
+			}
+
+			var pointsBuilder = new PointsBuilder();
+
+			var svg = new SvgDocument
+			{
+				Height = scene.Height,
+				Width = scene.Width
+			};
+
+			foreach (var figure in scene.Figures)
+			{
+				var polyline = new SvgPolyline
+				{
+					Points = new SvgPointCollection(),
+					Fill = new SvgColourServer(Color.Transparent),
+					Stroke = new SvgColourServer(figure.LineColor),
+					StrokeWidth = new SvgUnit((float)figure.LineThickness)
+				};
+
+				var points = pointsBuilder.Build(figure.Polygon, figure.LineSpacing, figure.DrawingDirection);
+
+				foreach (var point in points)
+				{
+					polyline.Points.Add(new SvgUnit(SvgUnitType.Point, (float)point.X));
+					polyline.Points.Add(new SvgUnit(SvgUnitType.Point, (float)point.Y));
+				}
+
+				svg.Children.Add(polyline);
+			}
+
+			var svgPath = LoadFile.FileName.Substring(0, LoadFile.FileName.Length - 4) + "_image.svg";
+			svg.Write(svgPath);
+			MessageBox.Show(
+				text: svgPath,
+				caption: @"Success");
 		}
 	}
 }
