@@ -28,7 +28,7 @@
 			Int32 recalculatedIndex = 1;
 			Int32 nextIndex = GetNextIndex(recalculatedIndex, basis.Count);
 
-			while (Point.SegmentLength(basis[recalculatedIndex], basis[nextIndex]) > interval)
+			while (Point.SegmentLength(basis[recalculatedIndex], basis[nextIndex]) - interval > 1e-2)
 			{
 				Point newPoint = CalculateNewPoint(basis[recalculatedIndex], basis[nextIndex], interval);
 				points.Add(new Point(newPoint));			
